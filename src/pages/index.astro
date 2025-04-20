@@ -8,8 +8,8 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
 
 <BaseLayout title="Home">
   <MainCard
-    title="Welcome to Frosti"
-    description="A modern, responsive, feature-rich blog theme for Astro with dark/light mode and customizable options."
+    title="Welcome to Summer's Blog"
+    description="与我一同探索这个充满奇迹的世界！"
     textOverlay="HOME"
     infoIcon="lucide:info"
   >
@@ -18,20 +18,17 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
       <section class="py-6">
         <div class="flex flex-col items-center text-center">
           <h1 class="text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            🌟 Frosti Blog Theme
+            🌟 Summer's Blog
           </h1>
-          <p class="text-xl text-base-content/80 max-w-3xl mb-8">
-            A minimal, responsive, and feature-rich Astro blog theme designed for creators who value beautiful content
-            presentation and exceptional performance.
-          </p>
+          <p class="text-xl text-base-content/80 max-w-3xl mb-8">与我一同探索这个充满奇迹的世界！</p>
           <div class="flex flex-wrap gap-4 justify-center">
             <a href="/blog" class="btn btn-primary gap-2 btn-shine-effect">
               <Icon name="lucide:book-open" class="w-5 h-5" />
               <span>Explore Blog</span>
             </a>
-            <a href="https://github.com/EveSunMaple/Frosti" target="_blank" class="btn btn-outline gap-2">
+            <a href="https://github.com/SummerZhouZihan" target="_blank" class="btn btn-outline gap-2">
               <Icon name="lucide:github" class="w-5 h-5" />
-              <span>Star on GitHub</span>
+              <span>Explore GitHub</span>
             </a>
           </div>
         </div>
@@ -89,83 +86,6 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
         </div>
       </section>
 
-      <!-- Quick Start -->
-      <section class="py-6">
-        <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
-          <Icon name="lucide:rocket" class="w-6 h-6 text-primary" />
-          <span>Quick Start</span>
-        </h2>
-
-        <div class="card bg-base-200 p-6">
-          <h3 class="text-xl font-bold mb-4">Get started in three simple steps:</h3>
-
-          <ol class="space-y-6 mb-6">
-            <li class="relative flex flex-col gap-4 items-start">
-              <div class="flex gap-4 items-center">
-                <div
-                  class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-primary-content flex-shrink-0"
-                >
-                  1
-                </div>
-                <h4 class="font-bold">Clone the repository</h4>
-              </div>
-              <div class="relative w-full">
-                <p class="text-base-content/70 mb-2">Use Git to clone the Frosti repository to your local machine:</p>
-                <div class="mockup-code text-sm mb-2">
-                  <pre><code>git clone --depth 1 https://github.com/EveSunMaple/Frosti.git Frosti</code></pre>
-                </div>
-              </div>
-            </li>
-
-            <li class="relative flex flex-col gap-4 items-start">
-              <div class="flex gap-4 items-center">
-                <div
-                  class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-primary-content flex-shrink-0"
-                >
-                  2
-                </div>
-                <h4 class="font-bold">Install dependencies</h4>
-              </div>
-              <div class="relative w-full">
-                <p class="text-base-content/70 mb-2">Navigate to the project directory and install dependencies:</p>
-                <div class="mockup-code text-sm mb-2">
-                  <pre><code>cd Frosti && npm install</code></pre>
-                </div>
-              </div>
-            </li>
-
-            <li class="relative flex flex-col gap-4 items-start">
-              <div class="flex gap-4 items-center">
-                <div
-                  class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-primary-content flex-shrink-0"
-                >
-                  3
-                </div>
-                <h4 class="font-bold">Start the development server</h4>
-              </div>
-              <div class="relative w-full">
-                <p class="text-base-content/70 mb-2">Launch the local development server to see your blog:</p>
-                <div class="mockup-code text-sm mb-2">
-                  <pre><code>npm run build && npm run dev</code></pre>
-                </div>
-                <p class="text-base-content/70">
-                  Open your browser and navigate to <code class="bg-base-300 px-2 py-1 rounded"
-                    >http://localhost:4321</code
-                  > to see your blog in action!
-                </p>
-              </div>
-            </li>
-          </ol>
-
-          <div class="alert bg-primary/10 text-primary mb-0">
-            <Icon name="lucide:lightbulb" class="w-6 h-6" />
-            <span
-              >Check out the <a href="/blog" class="underline">blog section</a> for detailed guides and documentation.</span
-            >
-          </div>
-        </div>
-      </section>
-
       <!-- GitHub Stats -->
       <section class="py-6">
         <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
@@ -173,7 +93,12 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
           <span>Repository Stats</span>
         </h2>
 
-        <GitHubStats username="EveSunMaple" repositoryName="Frosti" showLanguages={true} showContributors={true} />
+        <GitHubStats
+          username="SummerZhouZihan"
+          repositoryName="Numerical_Computation"
+          showLanguages={true}
+          showContributors={true}
+        />
       </section>
     </div>
   </MainCard>
