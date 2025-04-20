@@ -10,11 +10,9 @@ import { Icon } from "astro-icon/components";
 import { generatePageLinks } from "@utils/blogUtils";
 import { getCategoryPaginationPaths } from "@utils/paginationUtils";
 
-{% raw %}
 export async function getStaticPaths({ paginate }: { paginate: any }) {
   return getCategoryPaginationPaths({ paginate });
 }
-{% endraw %}
 
 const { page } = Astro.props as { page: Page };
 const params = Astro.params as { category: string; page: string };

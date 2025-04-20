@@ -20,12 +20,11 @@ const postsByDate = getPostsByYearAndMonth(sortedPosts);
 const years = Array.from(postsByDate.keys()).sort((a, b) => parseInt(b) - parseInt(a));
 
 // 从翻译获取月份名称
-{% raw %}
+
 const getMonthName = (month: string): string => {
   const monthIndex = parseInt(month);
   return t(`months.${monthIndex}`);
 };
-{% endraw %}
 
 // 统计总文章数
 const totalPosts = allPosts.length;
