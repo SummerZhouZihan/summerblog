@@ -9,9 +9,11 @@ import { t } from "@config";
 import { generatePageLinks } from "@utils/blogUtils";
 import { getMainBlogPaginationPaths } from "@utils/paginationUtils";
 
+{% raw %}
 export async function getStaticPaths({ paginate }: { paginate: any }) {
   return getMainBlogPaginationPaths({ paginate });
 }
+{% endraw %}
 
 const { page }: { page: Page } = Astro.props;
 
