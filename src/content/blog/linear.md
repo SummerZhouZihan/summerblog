@@ -6,7 +6,6 @@ image: /image/head.jpg
 categories:
   - tech
 tags:
-  - Makrdown
   - Machine Learning
 
 ---

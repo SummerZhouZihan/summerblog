@@ -1,12 +1,11 @@
 ---
-title: "搭建虚拟环境和使用anaconda"
-description: "搭建虚拟环境"
+title: "使用Anaconda搭建虚拟环境"
+description: "Building a virtual environment using Anaconda"
 pubDate: "Apr 20 2025"
 image: /image/head.jpg
 categories:
   - tech
 tags:
-  - Makrdown
   - Machine Learning
 
 ---

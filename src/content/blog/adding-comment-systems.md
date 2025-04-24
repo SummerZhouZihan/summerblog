@@ -11,6 +11,7 @@ tags:
   - Twikoo
   - Waline
   - Astro
+draft:true
 ---
 
 ## Introduction
@@ -103,6 +104,7 @@ const { envId, region = "ap-shanghai", path = Astro.url.pathname, lang = "en" } 
     margin-bottom: 2rem;
   }
 </style>
+
 ```
 
 ### Step 3: Using the Twikoo Component
@@ -126,6 +128,7 @@ import Twikoo from "../../components/comments/Twikoo.astro";
   <h2>Comments</h2>
   <Twikoo envId="your-environment-id" />
 </section>
+
 ```
 
 Replace `"your-environment-id"` with your actual Twikoo environment ID.
@@ -239,6 +242,7 @@ const {
     margin-bottom: 2rem;
   }
 </style>
+
 ```
 
 ### Step 3: Using the Waline Component
@@ -262,6 +266,7 @@ import Waline from "../../components/comments/Waline.astro";
   <h2>Comments</h2>
   <Waline serverURL="https://your-waline-server.vercel.app" />
 </section>
+
 ```
 
 Replace `"https://your-waline-server.vercel.app"` with your actual Waline server URL.
@@ -338,6 +343,7 @@ const { provider, twikoo, waline } = siteConfig.comments;
     border-top: 1px solid var(--color-border);
   }
 </style>
+
 ```
 
 ### Step 3: Use the CommentSystem Component
@@ -358,6 +364,7 @@ import CommentSystem from "../../components/comments/CommentSystem.astro";
 
 <!-- Add the comment section -->
 <CommentSystem />
+
 ```
 
 ## Troubleshooting
