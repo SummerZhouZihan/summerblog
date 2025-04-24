@@ -6,8 +6,8 @@ image: /image/image3.png
 categories:
   - tech
 tags:
-  - Makrdown
-draft:ture
+  - Markdown
+draft: true
 ---
 
 Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.

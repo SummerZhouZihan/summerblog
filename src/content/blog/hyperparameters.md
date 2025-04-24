@@ -94,7 +94,7 @@ plt.show()
 
 示例图如下
 
-![无超参数](img/in-post/post-hyperparameter/Figure_1.png)
+![无超参数](/image/post-hyperparameter/Figure_1.png)
 
 ## 二、有超参数时对假设进行评估
 
@@ -206,7 +206,7 @@ plt.show()
 
 我们得到验证集损失随最高次幂的变化曲线
 
-![验证集损失随最高次幂的变化曲线](img/in-post/post-hyperparameter/Figure_2.png)
+![验证集损失随最高次幂的变化曲线](/image/post-hyperparameter/Figure_2.png)
 
 由此我们得到
 
