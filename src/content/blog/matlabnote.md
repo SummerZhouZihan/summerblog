@@ -109,7 +109,7 @@ m文件可以分为**脚本文件**和**函数文件**
 - if-else-esleif分支结构
   - 最简单的if-else-end结构
 
-```Matlab
+```matlab
 if expression
     commands;
 end
@@ -117,7 +117,7 @@ end
 
 - if-else-elseif分支结构
 
-```Matlab
+```matlab
 if expression
     commands 1;
 else
@@ -127,7 +127,7 @@ end
 
 - 当有三个或者更多的选择.**_注意,这种形式只和所碰到的,与第一个真值表达式相关的命令被执行;接下来的关系表达式不检验,跳过其余的if-else-end结构,而且最后的else可有可无_**
 
-```Matlab
+```matlab
 if expression1
     ...;
 elseif expression2
@@ -141,7 +141,7 @@ end
 
 ##### for循环语句
 
-```Matlab
+```matlab
 for x=array(1:n)
     commands;
 end
@@ -154,7 +154,7 @@ end
 
 ##### while循环语句
 
-```Matlab
+```matlab
 while expression
     commands;
 end
@@ -162,7 +162,7 @@ end
 
 ##### switch语句
 
-```Matlab
+```matlab
 switch 表达式(可以是标量或字符串)
 case 值1
     语句1;
@@ -206,7 +206,7 @@ end
 function[varagout]=f_name(varargin)
 ```
 
-#### 2.3.3 matlab中的数据类型
+#### 2.3.3 Matlab中的数据类型
 
 | 变量   | 类型                  |
 | ------ | --------------------- |

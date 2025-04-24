@@ -298,7 +298,7 @@ $$
 
 #### 3.7.2 代码实例
 
-```Python
+```python
 import numpy as np
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
@@ -337,7 +337,7 @@ print(f"决定系数 (R^2): {r2}")
 
 #### 3.8.1 线性回归模型(LinearRegression)
 
-```Python
+```python
 # 导入numpy库和sklearn库
 import numpy as np
 from sklearn.linear_model import LinearRegression
@@ -360,7 +360,7 @@ print("预测结果:", y_pred)
 
 #### 3.8.2 逻辑回归模型(LogisticRegression)
 
-```Python
+```python
 import numpy as np
 from sklearn.linear_model import LogisticRegression
 
@@ -383,7 +383,7 @@ print("预测结果:", y_pred)
 
 #### 3.8.3 决策树模型(DecisionTreeClassifier)
 
-```Python
+```python
 import numpy as np
 from sklearn.tree import DecisionTreeClassifier
 
@@ -402,3 +402,26 @@ X_test = np.array([[6], [7]])
 y_pred = model.predict(X_test)
 print("预测结果:", y_pred)
 ```
+
+#### test
+
+`$`
+
+$A_n + B_n=C$
+
+letax形式`\(`
+
+\(A_n+C_n=D\)
+
+两个`$$`,分行
+
+$$
+A_m+C_n+F
+$$
+
+不分行
+$$A_n+FFG=c^g$$
+
+不加任何符号
+
+A_n + B_n=C
