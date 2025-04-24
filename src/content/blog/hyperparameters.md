@@ -42,7 +42,7 @@ tags:
 
 下面以线性回归为例，给出使用`scikit-learn`库实现数据集划分、模型训练和评估的 Python 代码：
 
-```Python
+```python
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
@@ -100,11 +100,11 @@ plt.show()
 
 对于一个要解决的问题，假设函数应该是几次幂才好呢？
 
-1. \( h_w(x) = w_0 + w_1 x \)
-2. \( h_w(x) = w_0 + w_1 x + w_2 x^2 \)
-3. \( h_w(x) = w_0 + w_1 x + \cdots + w_3 x^3 \)
+1. $ h_w(x) = w_0 + w_1 x $
+2. $ h_w(x) = w_0 + w_1 x + w_2 x^2 $
+3. $ h_w(x) = w_0 + w_1 x + \cdots + w_3 x^3 $
    $ \cdots $
-4. \( h*w(x) = w_0 + w_1 x + \cdots + w*{10} x^{10} \)
+4. $ h*w(x) = w_0 + w_1 x + \cdots + w*{10} x^{10} $
 
 如果我们对每一个假设函数都用梯度下降的方法在训练集上训练出合适的 $ \overrightarrow w$ ，然后对每一个 $ w $ ，求它在测试集上的损失，选出在测试集上损失最小的，比如选出最高次为5的模型。
 
@@ -122,7 +122,7 @@ plt.show()
 
 - **train_test_split** 基本语法
 
-```Python
+```python
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 ```
 
@@ -133,7 +133,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 
 以下是一个使用 `scikit-learn` 库实现上述方法的 Python 代码示例：
 
-```Python
+```python
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import PolynomialFeatures # 多项式回归

@@ -80,15 +80,31 @@ Notation:
 
 ### 2.2 Cost function 成本/损失函数
 
-Model模型：$ f\_{\mathbf{w},b}(\mathbf{x}^{(i)}) = \mathbf{w} \cdot \mathbf{x}^{(i)} + b $
+`Model`模型：
 
-Parameter参数: $\mathbf{w},\mathbf{X}$
+$$
+\begin{aligned}
+ f\_{\mathbf{w},b}(\mathbf{x}^{(i)}) = \mathbf{w} \cdot \mathbf{x}^{(i)} + b
+\end{aligned}
+$$
 
-Cost function成本函数：
+`Parameter`参数:
 
-$J(\mathbf{w},b) = \frac{1}{2m} \sum\limits*{i = 0}^{m-1} (f*{\mathbf{w},b}(\mathbf{x}^{(i)}) - y^{(i)})^2 $
+$$
+\begin{aligned}
+\mathbf{w},\mathbf{X}
+\end{aligned}
+$$
 
-Objective目标: 使成本函数$J(\mathbf{w},b)$最小
+`Cost function`成本函数：
+
+$$
+\begin{aligned}
+J(\mathbf{w},b) = \frac{1}{2m} \sum \limits_{i = 0}^{m-1} (f_{\mathbf{w},b}(\mathbf{x}^{(i)}) - y^{(i)})^2
+\end{aligned}
+$$
+
+`Objective`目标: 使成本函数$J(\mathbf{w},b)$最小
 
 ### 2.3 Gradient descent 梯度下降
 
@@ -147,9 +163,9 @@ $$
 
 1. 更新方程时需要同时更新$w$和$b$
 2. 正确方法：先同时计算右边部分，然后同时更新$w$和$b$
-3. $\times$错误方法：先计算temp0然后更新θ_0，再计算temp1然后更新θ_1
+3. $\times$错误方法：先计算$temp0$然后更新$ θ_0 $ ，再计算$temp1$然后更新$θ_1$
 
-### 2.4 Gradient descent for linear regression线性回归中的梯度下降算法
+### 2.4 Gradient descent for linear regression 线性回归中的梯度下降算法
 
 - 线性回归中不会出现多个极小值，三维图像永远是碗形，即convex function
 - bashed gradient descent指的是在梯度下降的每一步中，我们都在查看所有的训练事例，使用了整个训练集（因为有求和）
@@ -206,23 +222,29 @@ $$
 
 #### 3.3.2 Mean normalization 均值归一化
 
-##### 方法1.除以最大值
+##### **方法1.除以最大值**
 
-$x_1$在区间[a,b]中,$x_2$在区间[c,d]中
+$x_1$ 在区间[a,b]中, $x_2$ 在区间[c,d]中
 
 归一化后，$\widehat{x_1}=\frac{x_1}{b}$，$\widehat{x_2}=\frac{x_2}{b}$
 
-##### 方法2. Mean normalization
+##### **方法2. Mean normalization**
 
 $x_1$在区间[a,b]中,$x_2$在区间[c,d]中
 
 计算得到$x_1$的平均值$\mu_1$，$x_2$的平均值$\mu_2$
 
-归一化后，$\widehat{x_1}=\frac{x_1-\mu_1}{b-a}$,$\widehat{x_2}=\frac{x_2-\mu_2}{d-c}$
+归一化后，
+
+$$
+\begin{align*}
+\widehat{x_1}=\frac{x_1-\mu_1}{b-a}, \widehat{x_2}=\frac{x_2-\mu_2}{d-c}
+\end{align*}
+$$
 
 此时$\widehat{x_1}$和$\widehat{x_2}$在(-1,1)内部
 
-##### 方法3. Z-score normalization Z分数归一化
+##### **方法3. Z-score normalization Z分数归一化**
 
 求出平均值$\mu_1$和标准差(standard deviation)$\sigma_1$
 

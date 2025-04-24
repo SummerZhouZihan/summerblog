@@ -2,15 +2,13 @@
 title: "使用Anaconda搭建虚拟环境"
 description: "Building a virtual environment using Anaconda"
 pubDate: "Apr 20 2025"
-image: /image/head.jpg
+image: /image/head/3.jpg
 categories:
   - tech
 tags:
   - Machine Learning
 
 ---
-
-# 搭建虚拟环境和使用anaconda
 
 搭建虚拟环境有许多优点
 
