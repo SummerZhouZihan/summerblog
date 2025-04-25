@@ -1,0 +1,362 @@
+---
+title: "数值计算方法(一):误差与算法稳定性"
+description: Error and Algorithm Stability
+pubDate: 04 25 2025
+image: /image/head/6.png
+categories:
+  - tech
+tags:
+  - Numerical Analysis
+
+---
+
+import Collapse from "../../components/mdx/Collapse.astro";
+import Diff from "../../components/mdx/Diff.astro";
+import Error from "../../components/mdx/Error.astro";
+import Info from "../../components/mdx/Info.astro";
+import Kbd from "../../components/mdx/Kbd.astro";
+import Success from "../../components/mdx/Success.astro";
+import Warning from "../../components/mdx/Warning.astro";
+import TimeLine from "../../components/mdx/TimeLine.astro";
+import LinkCard from "../../components/mdx/LinkCard.astro";
+
+## 1 误差与算法稳定性
+
+### 1.1 误差的种类及其来源
+
+#### 误差的定义:
+
+- **截断误差**：当实际问题的数学模型很复杂，不能获取模型的精确解，必须提供近似解，模型的准确解与数值方法准确解之差称为截断误差或方法误差。
+
+- **舍入误差**：用有限位小数来代替无穷小数或用位数较少的小数来代替位数较多的有限小数所产生的误差。
+
+
+<Collapse title="不与数值计算方法本身直接相关的误差">
+- 粗差: 指在相同观测条件下作一系列的观测
+- 形式化模型误差：在将实际问题转化为数学模型的过程中，为了使数学模型尽量简单，以便于分析或计算，往往要忽略一些次要的因素，进行合理的简化。这样，实际问题与数学模型之间就产生了误差，这种误差称为模型误差，计算方法课中不讨论此种误差。
+- 观测误差：由于仪器本身的精度有限或某些偶然的客观因素会引入一定的误差，这种误差叫做观测误差，计算方法课中不讨论此种误差。
+- 数据不确定性误差
+</Collapse>
+
+**有效数字** : 有效数字对应于确定数字和一个估计数字的总位数. 计算机只能保留有效位个数字.保留有效数字后被省略的部分成为舍入误差.
+
+#### **准确度和精确度**
+
+- 准确度(accuracy)
+    
+    > 计算值或测量值与真值接近的程度
+- 精确度(precision)
+    
+    > 各计算值或测量值相互之间的集中程度
+
+在这里, 我们有一幅简明的图
+
+![准确度和精确度](https://zzh123-1325455460.cos.ap-nanjing.myqcloud.com/20250425195101.png)
+
+### 1.2 误差的定义
+
+**数值误差**源于用近似方法表示准确的数学运算和准确的数量
+
+**数值误差**包括截断误差与舍入误差
+- 当用近似方法表示准确数学过程时会出现截断误差
+- 当用有限个有效数字表示准确的数时会引起舍入误差
+
+- 绝对误差
+$$
+\begin{aligned}
+E = x - x^*
+\end{aligned}
+$$
+    - 绝对误差可正可负，一般E的准确值很难求出。可用真值的最优估计值代替真值，或者给出误差的一个上界$\theta(x*)$(**误差限**)
+
+- 相对误差
+$$
+\begin{aligned}
+\epsilon_r = \frac{E}{x} \times 100 \%
+\end{aligned}
+$$
+    - 当 $ x = 0 $ 时，相对误差无意义。  
+    - 准确值 $ x $ 往往未知，故常用 $ x^* $ 代替 $ x $，相对误差限为 $$\frac{\delta (x^*)}{|x^*|} $$
+
+
+### 1.3 有效数字与误差的关系
+
+定义: 设$x^*$是x的一个近似数,表示为,其中每个$a_i$均为0-9中的一个数字,且$a_1$不等于0,如果
+$$\left|x-x^*\right|\leq\frac{1}{2}*10^{k-n}$$
+则称$x^*$近似x有n位有效数字
+
+如果$x^*$有n位有效数字,则其相对误差限为
+$$
+\begin{aligned}
+\delta_r(x^*)\leq\frac{1}{2a_1}\times10^{-(n-1)}
+\end{aligned}
+$$
+
+### 1.4 迭代方法的误差估计
+
+当前迭代结果的误差
+$$
+\begin{aligned}
+\varepsilon_a = \frac{\text{当前近似值}-\text{前一近似值}}{\text{当前近似值}}\cdot 100 \% 
+\end{aligned}
+$$
+- 采用绝对值(不考虑正负号)
+- 是否小于预先设定好的容限$$|\varepsilon_a|<\varepsilon_s$$
+- 如果下面的准则成立,那么可以保证至少n位有效数字是正确的$$\varepsilon_s = \left(0.5\times 10^{2 - n}\right)\% = 0.5\times 10^{-n}$$
+- 但是有问题,可能不收敛到真值.因此我们需要能够收敛,并且收敛到真值.
+
+
+### 1.5 舍入误差与截断误差
+
+#### 1.5.1 数的计算机表示
+- **浮点表示**:在计算机中,数字表示为$$r = m \cdot b^e$$
+    其中$\frac{1}{b} \leq |m| <1$
+    - 使用浮点表示可以多保存有效数字.例如将0.029411765以十进制浮点形式存储，并且只准许4个十进制为可用.
+    - ![数的计算机表示](https://zzh123-1325455460.cos.ap-nanjing.myqcloud.com/image.png)
+    > 例如, $0.0294 \times 10^0 \rightarrow 0.2941 \times 10^{-1}$, 可以多保存数字
+
+在这里, 我们发现尾数只能保存有限的有效数字, 因此会引入==舍入误差==
+
+下面是一个例子
+    ![](https://zzh123-1325455460.cos.ap-nanjing.myqcloud.com/image-1.png)
+在这个例子中, 取到最小的正数时最后三位必须为 $"100"$ 而不是 $"000"$ , 因为 $m$ 的取值范围有要求
+
+我们得出结论:计算机表示数
+- 仅能表示有限范围的数 : 使用可接受范围以外的数会导致溢出. 不能表示非常小的数, 在0与第一个正数之间存在一个“洞”. 
+![存在一个洞](https://zzh123-1325455460.cos.ap-nanjing.myqcloud.com/20250425201556.png)
+- 在可接受数的范围内, 也只能表示有限个数 : 由于**量化误差**, 无理数以及不与该集合中的数对应的有理数都不可能准确地表示
+- 数之间的间隔随着数大小的增加而增大
+  - 引入==量化相对误差==
+  - 直接舍去的情况
+$$
+\begin{aligned}
+\frac{|\Delta x|}{|x|} \leq \varepsilon 
+\end{aligned}
+$$
+  - 四舍五入的情况
+$$
+\begin{aligned}
+\frac{|\Delta x|}{|x|} \leq \frac{\varepsilon}{2} 
+\end{aligned}
+$$
+  - 其中$\varepsilon$是==机器精度==,与浮点表示时相对误差的上限有关，规定了最坏情况下误差的大小.定义为$$\varepsilon = b^{1-t},\text{（b为基数，t为尾数中有效数字的个数)}$$
+
+<Collapse title="机器精度定义的原因">
+$$
+  \begin{aligned}
+  |\frac{b^{-t} \cdot b^e}{m\cdot b^e}| < |\frac{b^{-t} \cdot b^e}{b^{-1} \cdot b^e}| = b^{1-t}
+  \end{aligned}
+$$
+</Collapse>
+
+IEEE标准规定: 
+- 单精度浮点数：总32位，尾数24位
+- 双精度浮点数：总64位，尾数53位
+
+
+<Collapse title="伪代码">
+在二进制计算机中, 表示机器精度的伪代码
+
+```plaintext
+epsilon = 1
+DO
+  IF (epsilon+11) EXIT
+  epsilon = epsilon/2
+END DO
+epsilon = 2  epsilon
+```
+</Collapse>
+
+#### 1.5.2 计算机中的算数运算
+
+<Info>
+**减法会引入虚假的有效位, 加法会舍去真的有效位**
+</Info>
+
+- 加法: 当两个浮点数相加时，需要对较小的数的尾数进行调整，使两个数的指数相同
+  ![加法](https://zzh123-1325455460.cos.ap-nanjing.myqcloud.com/image-2.png)
+- 减法
+  ![减法](https://zzh123-1325455460.cos.ap-nanjing.myqcloud.com/image-3.png)
+- 乘法：指数相加，尾数相乘。两个n位尾数相乘得到2n位计算结果。
+- 除法：尾数相除，指数相减。然后对结果进行归一化和舍去处理。
+- 大规模计算: 即使单个计算的舍入误差可能很小，但在大量计算过程中的累积效应可能非常严重。
+- 大数与小数相加, 最后得到的结果就等于大数,可以不执行这个加法
+![大数小数](https://zzh123-1325455460.cos.ap-nanjing.myqcloud.com/20250425202219.png)
+  - 无穷级数求和: 初始项通常大于后面的项, 此时类似于大数与小数相加, 后面的项会被迫舍去. 可以采取==反向求和==的策略, 或者改变基底**(基底变为-1次幂)**, 使无穷级数大小递增.
+- 减性抵消: 两个几乎相等的浮点数相减时所引起的舍入误差
+
+#### 1.5.3 截断误差与泰勒级数
+
+定义: **截断误差**是由于用**近似过程**代替准确过程而产生的误差。
+
+$$
+\begin{aligned}
+\frac{dv}{dt} \approx \frac{\Delta v}{\Delta t} = \frac{v(t_{i + 1}) - v(t_{i})}{t_{i + 1} - t_{i}}
+\end{aligned}
+$$
+
+泰勒定理: 在包含a和x的区间上，如果一个函数f及其直至n+1阶导数都是连续的，那么该函数在x处的值可以表示为：
+$$
+\begin{aligned}
+f(x)=f(a)+f^{\prime}(a)(x - a)+\frac{f^{\prime\prime}(a)}{2!}(x - a)^2+\cdots+\frac{f^{(n)}(a)}{n!}(x - a)^n+R_{n}
+\end{aligned}
+$$
+
+积分形式的余项(是精确的,但不见得很小)
+$$
+\begin{aligned}
+R_{n}=\int_{a}^{x}\frac{(x - t)^n}{n!}f^{(n + 1)}(t)dt
+\end{aligned}
+$$
+
+应用中值定理，可以得到余项的拉格朗日形式
+
+$$
+\begin{aligned}
+R_{n}=\frac{f^{(n + 1)}(\xi)}{(n + 1)!}(x - a)^{n+1}
+\end{aligned}
+$$
+
+- 泰勒定理表明：任何光滑的函数都可以用多项式来逼近
+- 通常，n阶多项式的n阶泰勒级数展开得到的结果是准确的。对于其他连续可微函数，如指数函数和正弦函数，有限级数项是不可能得到准确结果的。每增加一项将使近似结果得到一定的改进，但改进程度不显著。
+- 多数情况下，泰勒级数展开的实际值只需要包含少数几项就可以得到非常接近真值的近似结果，对于实际应用来说足够了。
+- 误差与步长的n+1次方成比例
+  - 如果误差的量级为$O(h)$，那么步长减半就会使误差也减半。
+  - 如果误差的量级为$O(h^2)$，那么步长减半就会使误差变为原来的四分之一
+
+<Collapse title="步长对泰勒技术逼近的影响">
+我们来, 研究函数 $ f(x) = x^m $（$ m = 1, 2, 3, 4 $）在区间 $ [1, 2] $ 上的特性。  
+**一阶泰勒级数展开**：  
+   - 公式：$ f(x_{i+1}) = f(x_i) + m x_i^{m - 1} h $，其中 $ h $ 为步长。  
+   - 余项 $ R_1 $：
+$$
+\begin{aligned}
+R_1 = \frac{f''(x_i)}{2!} h^2 + \frac{f^{(3)}(x_i)}{3!} h^3 + \frac{f^{(4)}(x_i)}{4!} h^4 + \cdots 
+\end{aligned}
+$$  
+**误差特性**：  
+   - 随着函数非线性程度增大（$ m $ 增大，函数曲线弯曲更明显），一阶泰勒级数逼近的误差增大。  
+   - 随着步长 $ h $ 减小，高阶项（如 $ h^2, h^3 $ 等）对误差的影响减弱，一阶泰勒级数逼近的误差减小。  
+![](https://zzh123-1325455460.cos.ap-nanjing.myqcloud.com/20250425204006.png)
+右侧图像部分  
+- 横坐标为 $ x $，纵坐标为 $ f(x) $，展示了 $ m = 1, 2, 3, 4 $ 时 $ f(x) = x^m $ 的曲线。  
+- $ m = 1 $ 时为直线（线性函数），$ m = 2, 3, 4 $ 时为曲线，且 $ m $ 越大，曲线增长越陡峭，非线性程度越高，直观体现了“非线性程度增大时，一阶泰勒逼近误差增大”的特性。  
+</Collapse>
+
+![降落伞问题](https://zzh123-1325455460.cos.ap-nanjing.myqcloud.com/image-4.png)
+
+### 1.6 误差的传播与估计
+
+#### 1.6.1 单变量函数的误差传播
+
+假设一个函数$f(x)$，设$\tilde{x}$是$x$的近似值，估计$x$和$\tilde{x}$ 的差异对函数值的影响，即
+$$
+\Delta f(\tilde{x}) = |f(x) - f(\tilde{x})|
+$$
+用泰勒级数计算逼近$f(\tilde{x})$的$f(x)$
+$$
+\begin{aligned}
+f(x)=f(\tilde{x}) + f'(\tilde{x})(x - \tilde{x})+\frac{f''(\tilde{x})}{2}(x - \tilde{x})^2+\cdots
+\end{aligned}
+$$ 
+
+整理一下, 得到
+$$
+f(x)-f(\tilde{x})\cong f^{\prime}(\tilde{x})(x-\tilde{x})
+$$
+在这里, $\Delta f(\tilde{x}) = f(x)-f(\tilde{x})$ 是函数值的误差估计, $f^{\prime}(\tilde{x})$ 是函数的导数, $(x-\tilde{x})$ 是自变量的误差估计值
+
+表示在图像中, 我们得到
+![一阶误差传播的图像表述](https://zzh123-1325455460.cos.ap-nanjing.myqcloud.com/image-6.png)
+
+#### 1.6.2 多变量函数的误差传播
+
+下面我们来看多变量函数的误差传播
+
+一个具有两个变量 $ u $ 和 $ v $ 的函数，其泰勒级数展开为：  
+
+$$
+\begin{aligned}
+f(u_{i+1}, v_{i+1}) =& f(u_i, v_i) + \frac{\partial f}{\partial u}(u_{i+1} - u_i) + \frac{\partial f}{\partial v}(v_{i+1} - v_i) \\
+&+ \frac{1}{2!}\left[\frac{\partial^2 f}{\partial u^2}(u_{i+1} - u_i)^2 + 2\frac{\partial^2 f}{\partial u \partial v}(u_{i+1} - u_i)(v_{i+1} - v_i) + \frac{\partial^2 f}{\partial v^2}(v_{i+1} - v_i)^2\right] + \cdots
+\end{aligned}
+$$  
+
+舍去二阶和高阶项后，得到近似公式：  
+
+$$
+\begin{aligned}
+\Delta f(\tilde{u}, \tilde{v}) = \left|\frac{\partial f}{\partial u}\right| \Delta \tilde{u} + \left|\frac{\partial f}{\partial v}\right| \Delta \tilde{v}
+\end{aligned}
+$$  
+
+对于多变量函数，类似地有：  
+$$
+\begin{aligned}
+\Delta f(\tilde{x}_1, \tilde{x}_2, \dots, \tilde{x}_n) = \left|\frac{\partial f}{\partial x_1}\right| \Delta \tilde{x}_1 + \left|\frac{\partial f}{\partial x_2}\right| \Delta \tilde{x}_2 + \cdots + \left|\frac{\partial f}{\partial x_n}\right| \Delta \tilde{x}_n
+\end{aligned}
+$$  
+
+这表示在多变量情况下，通过保留一阶偏导项来近似估计函数的变化量，忽略高阶项的影响。 
+
+#### 1.6.3 一般数学运算的误差传播关系
+
+|运算|  |估计误差|
+|----|----|-----------|
+|加法|$\Delta(\tilde{u} + \tilde{v})$|$\Delta\tilde{u}+\Delta\tilde{v}$|
+|减法|$\Delta(\tilde{u} - \tilde{v})$|$\Delta\tilde{u}+\Delta\tilde{v}$|
+|乘法|$\Delta(\tilde{u} \times \tilde{v})$|$\tilde{u}\Delta\tilde{v}+\tilde{v}\Delta\tilde{u}$|
+|除法|$\Delta\left(\frac{\tilde{u}}{\tilde{v}}\right)$|$\frac{\tilde{u}\Delta\tilde{v}+\tilde{v}\Delta\tilde{u}}{\tilde{v}^{2}}$| 
+
+### 1.7 算法的数值稳定性
+
+下面我们简要介绍一下算法的数值稳定性
+
+![数值稳定性](https://zzh123-1325455460.cos.ap-nanjing.myqcloud.com/image-5.png)
+- 条件数 (condition number) 定义为相对误差之比
+$$
+\begin{aligned}
+K_P&=\frac{|\beta|}{|\alpha|}\\
+&=\left|\frac{f(\tilde{x}) - f(x)}{f(x)}\right| / \left|\frac{\tilde{x} - x}{x}\right|\\
+&=\left|\frac{f(\tilde{x}) - f(x)}{\tilde{x} - x}\right| \times \left|\frac{x}{f(x)}\right|\\
+&\cong\left|x\frac{f'(x)}{f(x)}\right|
+\end{aligned}
+$$
+
+- 条件数体现了x的不确定性被f(x)放大程度
+  - 如果条件数等于1,表示函数的相对误差等于x的相对误差;
+  - 如果条件数大于1,表示相对误差被放大了;
+  - 如果条件数小于1,表示相对误差减小了。 
+- 如果函数的条件数远大于1,则说明这个函数是病态函数(ill-conditioned)
+
+
+
+<Collapse title="问题条件数与算法条件数">
+
+在这个例子中, 我们对函数 $ f(x) = \sqrt {x^2 + 1} - x $ 分析数值稳定性
+
+1. **问题条件数 $ K_P $**：  
+   - 对 $ f(x) = \sqrt{x^2 + 1} - x $，当 $ x \gg 1 $ 时，近似展开得 $ f'(x) \approx -\frac{1}{2x^2} $，计算得 $ K_P = 1 $。表明问题本身条件良好，非病态。  
+
+2. **算法 A（4 位有效数字）**：  
+   - 计算 $ \tilde{x} = 0.1 \times 10^3 $ 时，因有效数字限制，$ f(\tilde{x}) $ 结果为 $ 0 $。  
+   - 计算 $ |\beta| = \left| \frac{f(\tilde{x}) - f(x)}{f(x)} \right| = 1 $，$ |\alpha| = \left| \frac{\tilde{x} - x}{x} \right| \leq \frac{1}{2} \times 10^{-3} $，得 $ K_A = \frac{|\beta|}{|\alpha|} \approx 2000 $。  
+   - 算法条件数大，数值稳定性差，误差对结果影响显著。  
+
+3. **算法 B（重写表达式）**：  
+   - 将 $ f(x) $ 改写为 $ f(x) = \frac{1}{\sqrt{x^2 + 1} + x} $。计算 $ \tilde{x} = 0.1 \times 10^3 $ 时，$ f(\tilde{x}) = 0.5 \times 10^{-2} $。  
+   - 此时 $ |\beta| \approx 0 $，$ K_A \approx 0 \ll 1 $。算法条件数小，数值稳定性高，误差影响极小。  
+
+**结论**：问题条件数 $ K_P = 1 $ 表明问题本身非病态，但算法 A 条件数大，数值不稳定；算法 B 通过重写表达式降低了算法条件数，提升了数值稳定性。改善方法为：重写算法、提高计算精度。 
+</Collapse>
+
+#### 总的数值误差
+
+截断误差和舍入误差之和
+- 通常，最小化舍入误差的方法是增加计算机的有效数字个数
+- 缩短步长使截断误差减小
+- 但缩短步长可能导致减性抵销或增加计算量，使舍入误差增大
+- **大多数计算机可以表示足够多的有效数字，因此舍入误差不会占主导地位**
+
+
+<Success>恭喜你已经学会误差分析了! 快进入下一章的学习内容吧! </Success>
